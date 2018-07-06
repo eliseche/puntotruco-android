@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">PuntoTruco</string>
+    <string name="us">Nosotros</string>
+    <string name="them">Ellos</string>
+    <string name="yes">Si</string>
+    <string name="no">Não</string>
+    <string name="accept">Aceptar</string>
+    <string name="game_win">Fin del Juego!</string>
+    <string name="reset_counter">¿Resetear pontos?</string>
+    <string name="points_to_play">Puntos a Jugar</string>
+    <string name="menu_settings">Configuração</string>
+    <string name="menu_about">Sobre</string>
+    <string name="develop_by">Desarrollador por Quitarts</string>
+</resources>
