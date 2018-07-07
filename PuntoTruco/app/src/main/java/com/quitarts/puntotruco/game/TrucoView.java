@@ -1,25 +1,22 @@
 package com.quitarts.puntotruco.game;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.View;
 
-import javax.security.auth.callback.Callback;
-
-import com.quitarts.puntotruco.ContextContainer;
 import com.quitarts.puntotruco.R;
 import com.quitarts.puntotruco.Utils;
 import com.quitarts.puntotruco.game.object.Button;
 import com.quitarts.puntotruco.game.object.Points;
 import com.quitarts.puntotruco.game.object.base.GraphicObject;
 import com.quitarts.puntotruco.ui.MainActivity;
+
+import javax.security.auth.callback.Callback;
 
 public class TrucoView extends View implements Callback {
     private MainActivity trucoActivity;
@@ -87,7 +84,7 @@ public class TrucoView extends View implements Callback {
         buttonReload.setY(Utils.getCanvasHeight() - (10 * Utils.getCanvasHeight() / 100) + buttonReload.getHeight() / 2);
 
         buttonDeleteLeft = new Button(FactoryDrawable.DrawableType.SUBSTRACT);
-        buttonDeleteLeft.setX(0 + buttonDeleteLeft.getWidth());
+        buttonDeleteLeft.setX(buttonDeleteLeft.getWidth());
         buttonDeleteLeft.setY(Utils.getCanvasHeight() - (10 * Utils.getCanvasHeight() / 100) + buttonDeleteLeft.getHeight() / 2);
 
         buttonAddLeft = new Button(FactoryDrawable.DrawableType.ADD);
@@ -111,15 +108,6 @@ public class TrucoView extends View implements Callback {
         }
 
         return super.onTouchEvent(event);
-    }
-
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-    }
-
-    public void surfaceCreated(SurfaceHolder holder) {
-    }
-
-    public void surfaceDestroyed(SurfaceHolder holder) {
     }
 
     public void hudClick(int x, int y) {

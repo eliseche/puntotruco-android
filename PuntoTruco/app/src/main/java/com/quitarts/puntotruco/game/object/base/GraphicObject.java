@@ -7,10 +7,10 @@ import com.quitarts.puntotruco.game.FactoryDrawable;
 
 public class GraphicObject implements Cloneable {
     private BitmapDrawable graphic;
-    protected float x = 0.0f;
-    protected float y = 0.0f;
-    protected float xCenter = 0.0f;
-    protected float yCenter = 0.0f;
+    private float x = 0.0f;
+    private float y = 0.0f;
+    private float xCenter = 0.0f;
+    private float yCenter = 0.0f;
 
     public GraphicObject(FactoryDrawable.DrawableType drawableType) {
         graphic = FactoryDrawable.createDrawable(drawableType);
@@ -64,20 +64,19 @@ public class GraphicObject implements Cloneable {
         return graphic.getMinimumHeight();
     }
 
-    public void calculateCenter() {
+    private void calculateCenter() {
         xCenter = x + getWidth() / 2.0f;
         yCenter = y + getHeight() / 2.0f;
     }
 
-    public void calculateBounds() {
+    private void calculateBounds() {
         graphic.setBounds((int) x, (int) y, (int) x + getWidth(), (int) y + getHeight());
     }
 
     @Override
     public Object clone() {
         try {
-            GraphicObject clonedGraphicObject = (GraphicObject) super.clone();
-            return clonedGraphicObject;
+            return super.clone();
         } catch (Exception e) {
             Log.e(getClass().getName(), e.getMessage(), e);
         }

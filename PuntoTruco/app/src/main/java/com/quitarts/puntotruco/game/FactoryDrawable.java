@@ -4,17 +4,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.quitarts.puntotruco.ContextContainer;
 import com.quitarts.puntotruco.R;
 import com.quitarts.puntotruco.Utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FactoryDrawable {
     private static Map<DrawableType, BitmapDrawable> bitmapDrawables = new HashMap<>();
 
-    public static enum DrawableType {
+    public enum DrawableType {
         ADD,
         SUBSTRACT,
         MULTIPLY,
@@ -56,8 +56,8 @@ public class FactoryDrawable {
                 case MATCHSTICK_4:
                     bitmap = Bitmap.createScaledBitmap(
                             bitmap,
-                            (int) (Utils.getCanvasWidth() * 12 / 100),
-                            (int) (Utils.getCanvasWidth() * 12 / 100),
+                            Utils.getCanvasWidth() * 12 / 100,
+                            Utils.getCanvasWidth() * 12 / 100,
                             false);
                     break;
             }
@@ -85,8 +85,8 @@ public class FactoryDrawable {
                 case SUBSTRACT:
                     bitmap = Bitmap.createScaledBitmap(
                             bitmap,
-                            (int) (Utils.getCanvasWidth() * 8 / 100),
-                            (int) (Utils.getCanvasWidth() * 8 / 100),
+                            Utils.getCanvasWidth() * 8 / 100,
+                            Utils.getCanvasWidth() * 8 / 100,
                             false);
                     break;
             }
