@@ -15,7 +15,8 @@ public class TrucoGrid {
     private TrucoView trucoView;
     private String textPlayer1;
     private String textPlayer2;
-    private int hudHeight;
+    private int hudHeightTop;
+    private int hudHeightBottom;
     private int matchHeight;
     private Paint paintBoard;
     private Paint paintText;
@@ -36,43 +37,43 @@ public class TrucoGrid {
     private void drawBoard(Canvas canvas) {
         canvas.drawLine(
                 0,
-                10 * Utils.getCanvasHeight() / 100,
+                hudHeightTop,
                 Utils.getCanvasWidth(),
-                10 * Utils.getCanvasHeight() / 100,
+                hudHeightTop,
                 paintBoard);
 
         canvas.drawLine(
                 Utils.getCanvasWidth() / 2,
                 0,
                 Utils.getCanvasWidth() / 2,
-                Utils.getCanvasHeight() - hudHeight,
+                Utils.getCanvasHeight() - hudHeightBottom,
                 paintBoard);
     }
 
     private void drawGoodLine(Canvas canvas) {
         canvas.drawLine(
                 0,
-                (10 * Utils.getCanvasHeight() / 100) + matchHeight * 3 + 3 * matchOffsetY + matchOffsetY / 2,
+                hudHeightTop + matchHeight * 3 + 3 * matchOffsetY + matchOffsetY / 2,
                 Utils.getCanvasWidth(),
-                (10 * Utils.getCanvasHeight() / 100) + matchHeight * 3 + 3 * matchOffsetY + matchOffsetY / 2,
+                hudHeightTop + matchHeight * 3 + 3 * matchOffsetY + matchOffsetY / 2,
                 paintBoard);
     }
 
     private void drawPlayers(Canvas canvas) {
         canvas.drawText(textPlayer1,
                 ((Utils.getCanvasWidth() / 2) - (paintText.measureText(textPlayer1))) / 2,
-                (10 * Utils.getCanvasHeight() / 100) - ((10 * Utils.getCanvasHeight() / 100) - paintText.getTextSize()) / 2,
+                hudHeightTop - (hudHeightTop - paintText.getTextSize()) / 2,
                 paintText);
 
         canvas.drawText(textPlayer2,
                 (Utils.getCanvasWidth() / 2) + ((Utils.getCanvasWidth() / 2) - paintText.measureText(textPlayer2)) / 2,
-                (10 * Utils.getCanvasHeight() / 100) - ((10 * Utils.getCanvasHeight() / 100) - paintText.getTextSize()) / 2,
+                hudHeightTop - (hudHeightTop - paintText.getTextSize()) / 2,
                 paintText);
     }
 
     private void drawMatches(Canvas canvas) {
         int x = ((Utils.getCanvasWidth() / 2) - matchHeight) / 2;
-        int y = (10 * Utils.getCanvasHeight() / 100) + matchOffsetY;
+        int y = hudHeightTop + matchOffsetY;
         int i = 0;
         int offsetY = 0;
 
@@ -92,7 +93,7 @@ public class TrucoGrid {
         }
 
         x = (Utils.getCanvasWidth() / 2) + ((Utils.getCanvasWidth() / 2) - matchHeight) / 2;
-        y = (10 * Utils.getCanvasHeight() / 100) + matchOffsetY;
+        y = hudHeightTop + matchOffsetY;
         i = 0;
         offsetY = 0;
 
@@ -120,7 +121,9 @@ public class TrucoGrid {
     private void initialize() {
         textPlayer1 = ContextContainer.getApplicationContext().getResources().getString(R.string.us);
         textPlayer2 = ContextContainer.getApplicationContext().getResources().getString(R.string.them);
-        hudHeight = 10 * Utils.getCanvasHeight() / 100;
+
+        hudHeightTop = 10 * Utils.getCanvasHeight() / 100;
+        hudHeightBottom = 10 * Utils.getCanvasHeight() / 100;
         matchHeight = new GraphicObject(FactoryDrawable.DrawableType.MATCHSTICK_0).getGraphic().getMinimumHeight();
 
         paintBoard = new Paint();
@@ -132,7 +135,7 @@ public class TrucoGrid {
         paintText.setTextSize(25 * Utils.getScaleFactor());
         paintText.setAntiAlias(true);
 
-        int availableArea = Utils.getCanvasHeight() - (10 * Utils.getCanvasHeight() / 100) - hudHeight;
+        int availableArea = Utils.getCanvasHeight() - hudHeightTop - hudHeightBottom;
         matchOffsetY = 4 * availableArea / 100;
     }
 }

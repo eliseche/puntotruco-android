@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         ContextContainer.setApplicationContext(getApplicationContext());
         Display display = getWindowManager().getDefaultDisplay();
-        Utils.setCanvasSize(display.getWidth(), display.getHeight() - actionBarHeight() - 100);
+        Utils.setCanvasSize(display.getWidth(), display.getHeight() - actionBarHeight());
         Utils.configurePreferences();
         trucoView = new TrucoView(this);
         setContentView(trucoView);
