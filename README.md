@@ -1,1 +1,1 @@
-# puntotruco-android
+# PuntoTruco for Android
