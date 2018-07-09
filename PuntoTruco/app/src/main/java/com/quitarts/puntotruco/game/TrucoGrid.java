@@ -21,7 +21,7 @@ public class TrucoGrid {
     private Paint paintText;
     private int matchOffsetY;
 
-    public TrucoGrid(TrucoView trucoView) {
+    TrucoGrid(TrucoView trucoView) {
         this.trucoView = trucoView;
 
         initialize();
@@ -49,12 +49,12 @@ public class TrucoGrid {
                 paintBoard);
     }
 
-    public void drawGoodLine(Canvas canvas) {
+    private void drawGoodLine(Canvas canvas) {
         canvas.drawLine(
                 0,
-                (10 * Utils.getCanvasHeight() / 100) + matchHeight * 3 + 3 * matchOffsetY + matchOffsetY /2,
+                (10 * Utils.getCanvasHeight() / 100) + matchHeight * 3 + 3 * matchOffsetY + matchOffsetY / 2,
                 Utils.getCanvasWidth(),
-                (10 * Utils.getCanvasHeight() / 100) + matchHeight * 3 + 3 * matchOffsetY + matchOffsetY /2,
+                (10 * Utils.getCanvasHeight() / 100) + matchHeight * 3 + 3 * matchOffsetY + matchOffsetY / 2,
                 paintBoard);
     }
 
