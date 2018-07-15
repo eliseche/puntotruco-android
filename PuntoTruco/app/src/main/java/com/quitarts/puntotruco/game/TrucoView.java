@@ -65,7 +65,8 @@ public class TrucoView extends View implements Callback {
 
     private void initialize() {
         grid = new TrucoGrid(this);
-        int heightWithHud = Utils.getCanvasHeight() - (10 * Utils.getCanvasHeight() / 100);
+        int hudHeight = 10 * Utils.getCanvasHeight() / 100;
+        int spacing = 5 * Utils.getCanvasWidth() / 100;
 
         background = (BitmapDrawable) getResources().getDrawable(R.drawable.background_1);
         background.setTileModeX(Shader.TileMode.MIRROR);
@@ -73,7 +74,7 @@ public class TrucoView extends View implements Callback {
 
         hudArea = new Rect();
         hudArea.set(0,
-                heightWithHud,
+                Utils.getCanvasHeight() - hudHeight,
                 Utils.getCanvasWidth(),
                 Utils.getCanvasHeight());
 
@@ -82,23 +83,23 @@ public class TrucoView extends View implements Callback {
 
         buttonReload = new Button(FactoryDrawable.DrawableType.MULTIPLY);
         buttonReload.setX(Utils.getCanvasWidth() / 2 - buttonReload.getWidth() / 2);
-        buttonReload.setY(heightWithHud + buttonReload.getYCenter() / 2);
+        buttonReload.setY(Utils.getCanvasHeight() - hudHeight / 2 - buttonReload.getHeight() / 2);
 
         buttonDeleteLeft = new Button(FactoryDrawable.DrawableType.SUBSTRACT);
-        buttonDeleteLeft.setX(buttonDeleteLeft.getWidth());
-        buttonDeleteLeft.setY(heightWithHud + buttonDeleteLeft.getYCenter() / 2);
+        buttonDeleteLeft.setX(spacing);
+        buttonDeleteLeft.setY(Utils.getCanvasHeight() - hudHeight / 2 - buttonDeleteLeft.getHeight() / 2);
 
         buttonAddLeft = new Button(FactoryDrawable.DrawableType.ADD);
-        buttonAddLeft.setX(buttonReload.getXCenter() - buttonAddLeft.getWidth() * 3);
-        buttonAddLeft.setY(heightWithHud + buttonAddLeft.getYCenter() / 2);
+        buttonAddLeft.setX(buttonReload.getX() - buttonAddLeft.getWidth() - spacing);
+        buttonAddLeft.setY(Utils.getCanvasHeight() - hudHeight / 2 - buttonAddLeft.getHeight() / 2);
 
         buttonDeleteRight = new Button(FactoryDrawable.DrawableType.SUBSTRACT);
-        buttonDeleteRight.setX(buttonReload.getXCenter() + buttonDeleteRight.getWidth() * 2);
-        buttonDeleteRight.setY(heightWithHud + buttonDeleteRight.getYCenter() / 2);
+        buttonDeleteRight.setX(buttonReload.getX() + buttonDeleteRight.getWidth() + spacing);
+        buttonDeleteRight.setY(Utils.getCanvasHeight() - hudHeight / 2 - buttonDeleteRight.getHeight() / 2);
 
         buttonAddRight = new Button(FactoryDrawable.DrawableType.ADD);
-        buttonAddRight.setX(Utils.getCanvasWidth() - buttonAddRight.getWidth() * 2);
-        buttonAddRight.setY(heightWithHud + buttonAddRight.getYCenter() / 2);
+        buttonAddRight.setX(Utils.getCanvasWidth() - buttonAddRight.getWidth() - spacing);
+        buttonAddRight.setY(Utils.getCanvasHeight() - hudHeight / 2 - buttonAddRight.getHeight() / 2);
     }
 
     @Override
