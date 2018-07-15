@@ -6,8 +6,8 @@ android {
         applicationId "com.quitarts.puntotruco"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 9
-        versionName "2.6"
+        versionCode 10
+        versionName "2.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
