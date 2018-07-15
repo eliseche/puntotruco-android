@@ -85,8 +85,8 @@ public class FactoryDrawable {
                 case SUBSTRACT:
                     bitmap = Bitmap.createScaledBitmap(
                             bitmap,
-                            Utils.getCanvasWidth() * 8 / 100,
-                            Utils.getCanvasWidth() * 8 / 100,
+                            Utils.getCanvasWidth() * 12 / 100,
+                            Utils.getCanvasWidth() * 12 / 100,
                             false);
                     break;
             }
