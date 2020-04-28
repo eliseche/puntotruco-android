@@ -1,5 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-</LinearLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModelMain"
+            type="com.quitarts.puntotruco.viewmodels.ViewModelMain" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_1"
+        tools:context=".views.ActivityMain">
+
+        <!-- Us and Them -->
+        <LinearLayout
+            android:id="@+id/hud_top"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/us"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/them"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/white" />
+
+        </LinearLayout>
+
+        <!-- Middle separator -->
+        <View
+            android:id="@+id/separator"
+            android:layout_width="3dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/hud_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Hud -->
+        <LinearLayout
+            android:id="@+id/hud_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#44000000"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModelMain.actionUsSubstract()}"
+                android:src="@drawable/substract" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModelMain.actionUsAdd()}"
+                android:src="@drawable/add" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModelMain.actionMultiply()}"
+                android:src="@drawable/multiply" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModelMain.actionThemSubstract()}"
+                android:src="@drawable/substract" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModelMain.actionThemAdd()}"
+                android:src="@drawable/add" />
+
+        </LinearLayout>
+
+        <!-- View Us -->
+        <com.quitarts.puntotruco.components.Grid
+            android:id="@+id/grid_us"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/hud_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/separator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hud_top" />
+
+        <!-- View Them -->
+        <com.quitarts.puntotruco.components.Grid
+            android:id="@+id/grid_them"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/hud_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/separator"
+            app:layout_constraintTop_toBottomOf="@+id/hud_top" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
