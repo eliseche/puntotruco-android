@@ -2,6 +2,8 @@ package com.quitarts.puntotruco.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.quitarts.puntotruco.ApplicationMain
+import com.quitarts.puntotruco.R
 import com.quitarts.puntotruco.Utils
 import com.quitarts.puntotruco.components.Grid
 
@@ -10,7 +12,7 @@ class ViewModelMain : ViewModel() {
     private lateinit var gridThem: Grid
     private var gamePoints = Utils.getPoints()
     val actionShowAlertReset = MutableLiveData<Unit>()
-    val actionShowAlertGameOver = MutableLiveData<Unit>()
+    val actionShowAlertGameOver = MutableLiveData<String>()
     val actionRefresh = MutableLiveData<Unit>()
 
     fun init(gridUs: Grid, gridThem: Grid) {
@@ -58,7 +60,9 @@ class ViewModelMain : ViewModel() {
     }
 
     private fun checkForGameOver() {
-        if (gridUs.getPoints() == gamePoints || gridThem.getPoints() == gamePoints)
-            actionShowAlertGameOver.postValue(Unit)
+        if (gridUs.getPoints() == gamePoints)
+            actionShowAlertGameOver.postValue(ApplicationMain.applicationContext().getString(R.string.us))
+        else if (gridThem.getPoints() == gamePoints)
+            actionShowAlertGameOver.postValue(ApplicationMain.applicationContext().getString(R.string.them))
     }
 }

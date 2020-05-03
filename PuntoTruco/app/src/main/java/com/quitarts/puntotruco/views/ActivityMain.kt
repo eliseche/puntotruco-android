@@ -8,7 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.quitarts.puntotruco.BR
 import com.quitarts.puntotruco.R
 import com.quitarts.puntotruco.databinding.ActivityMainBinding
@@ -21,8 +21,7 @@ class ActivityMain : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModelMain = ViewModelProviders.of(this).get(ViewModelMain::class.java)
-
+        viewModelMain = ViewModelProvider(this).get(ViewModelMain::class.java)
 
         val binding: ActivityMainBinding? = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding?.setVariable(BR.viewModelMain, viewModelMain)
@@ -77,33 +76,48 @@ class ActivityMain : AppCompatActivity() {
         })
 
         viewModelMain.actionShowAlertGameOver.observe(this, Observer {
-            showAlertGameOver()
+            it?.let {
+                showAlertGameOver(it)
+            }
         })
     }
 
     private fun refreshUi() {
         grid_us.invalidate()
         grid_them.invalidate()
+
+        view_us.text = "${getString(R.string.us)} (${grid_us.getPoints()})"
+        view_them.text = "${getString(R.string.them)} (${grid_them.getPoints()})"
+    }
+
+    private fun reset() {
+        viewModelMain.reset()
     }
 
     // Alerts
-    fun showAlertReset() {
-        val builder = AlertDialog.Builder(this)
-        builder.setCancelable(false)
-        builder.setTitle(resources.getString(R.string.reset_counter))
-        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, i ->
-            viewModelMain.reset()
-        }
-        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, i -> }
-        builder.create().show()
+    private fun showAlertReset() {
+        val alertParams = ActivityAlert.AlertParams(
+            getString(R.string.reset_counter),
+            getString(R.string.reset_counter),
+            getString(R.string.yes),
+            getString(R.string.no)
+        )
+        ActivityAlert.completionPositive = this::reset
+        val intent = Intent(this, ActivityAlert::class.java)
+        intent.putExtra(ActivityAlert.ALERT_PARAMS, alertParams)
+        startActivity(intent)
     }
 
-    fun showAlertGameOver() {
-        val builder = AlertDialog.Builder(this)
-        builder.setCancelable(false)
-        builder.setTitle(resources.getString(R.string.game_win))
-        builder.setPositiveButton(resources.getString(R.string.accept)) { dialogInterface, i ->
-        }
-        builder.create().show()
+    private fun showAlertGameOver(winner: String) {
+        val alertParams = ActivityAlert.AlertParams(
+            getString(R.string.game_win),
+            String.format(getString(R.string.game_win_description), winner),
+            getString(R.string.yes),
+            getString(R.string.no)
+        )
+        ActivityAlert.completionPositive = this::reset
+        val intent = Intent(this, ActivityAlert::class.java)
+        intent.putExtra(ActivityAlert.ALERT_PARAMS, alertParams)
+        startActivity(intent)
     }
 }
