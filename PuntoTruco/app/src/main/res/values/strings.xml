@@ -13,6 +13,8 @@
     <string name="menu_about">About</string>
     <string name="develop_by">Develop by Quitarts</string>
     // Settings
-    <string name="edit_points_title">Warning</string>
+    <string name="warning">Warning</string>
     <string name="edit_points_description">Your game will restart. Do you wish to continue?</string>
+    // Player Name
+    <string name="player_name_hint">Player Name</string>
 </resources>

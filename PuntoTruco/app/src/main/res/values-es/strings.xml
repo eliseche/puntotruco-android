@@ -6,9 +6,15 @@
     <string name="no">No</string>
     <string name="accept">Aceptar</string>
     <string name="game_win">Fin del Juego!</string>
+    <string name="game_win_description">%s Ganó!. ¿Desea reiniciar juego?</string>
     <string name="reset_counter">¿Resetear Puntos?</string>
     <string name="points_to_play">Puntos a Jugar</string>
     <string name="menu_settings">Configuración</string>
     <string name="menu_about">Acerca</string>
     <string name="develop_by">Desarrollado por Quitarts</string>
+    // Settings
+    <string name="warning">Cuidado</string>
+    <string name="edit_points_description">Su juego se va a reiniciar. ¿Desea continuar?</string>
+    // Player Name
+    <string name="player_name_hint">Nombre Jugador</string>
 </resources>

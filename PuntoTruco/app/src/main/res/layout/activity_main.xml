@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/us"
+                    android:text="@{viewModelMain.gridUsPlayerNameAndPoints}"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/them"
+                    android:text="@{viewModelMain.gridThemPlayerNameAndPoints}"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 

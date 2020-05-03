@@ -11,13 +11,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.quitarts.puntotruco.BR
 import com.quitarts.puntotruco.R
+import com.quitarts.puntotruco.Utils
 import com.quitarts.puntotruco.databinding.ActivityMainBinding
+import com.quitarts.puntotruco.enums.PlayerType
 import com.quitarts.puntotruco.viewmodels.ViewModelMain
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
-class ActivityMain : AppCompatActivity() {
+class ActivityMain : AppCompatActivity(), FragmentPlayer.IFragmentPlayerListener {
     private lateinit var viewModelMain: ViewModelMain
+    private lateinit var fragmentPlayer: FragmentPlayer
 
+    //region Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,7 +68,16 @@ class ActivityMain : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+    //endregion
 
+    //region IFragmentPlayerListener
+    override fun onDialogPositiveClick(playerName: String, playerType: PlayerType) {
+        fragmentPlayer.dismiss()
+        viewModelMain.savePlayerName(playerName, playerType)
+    }
+    //endregion
+
+    //region Setup
     private fun init() {
         viewModelMain.init(grid_us, grid_them)
 
@@ -80,24 +94,42 @@ class ActivityMain : AppCompatActivity() {
                 showAlertGameOver(it)
             }
         })
+
+        view_us.onClick {
+            changePlayerName(PlayerType.US)
+        }
+
+        view_them.onClick {
+            changePlayerName(PlayerType.THEM)
+        }
     }
+    //endregion
 
     private fun refreshUi() {
         grid_us.invalidate()
         grid_them.invalidate()
 
-        view_us.text = "${getString(R.string.us)} (${grid_us.getPoints()})"
-        view_them.text = "${getString(R.string.them)} (${grid_them.getPoints()})"
+        viewModelMain.updatePlayerNames()
     }
 
     private fun reset() {
         viewModelMain.reset()
     }
 
-    // Alerts
+    private fun changePlayerName(playerType: PlayerType) {
+        val args = Bundle()
+        args.putSerializable("playerType", playerType)
+
+        fragmentPlayer = FragmentPlayer()
+        fragmentPlayer.isCancelable = false
+        fragmentPlayer.arguments = args
+        fragmentPlayer.show(supportFragmentManager, ActivityMain::class.java.simpleName)
+    }
+
+    //region Alerts
     private fun showAlertReset() {
         val alertParams = ActivityAlert.AlertParams(
-            getString(R.string.reset_counter),
+            getString(R.string.warning),
             getString(R.string.reset_counter),
             getString(R.string.yes),
             getString(R.string.no)
@@ -120,4 +152,5 @@ class ActivityMain : AppCompatActivity() {
         intent.putExtra(ActivityAlert.ALERT_PARAMS, alertParams)
         startActivity(intent)
     }
+    //endregion
 }

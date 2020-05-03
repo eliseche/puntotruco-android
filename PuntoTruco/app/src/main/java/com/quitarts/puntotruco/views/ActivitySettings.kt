@@ -71,7 +71,7 @@ class ActivitySettings : AppCompatActivity() {
     private fun showConfirmAlert() {
         runOnUiThread {
             val alertParams = ActivityAlert.AlertParams(
-                getString(R.string.edit_points_title),
+                getString(R.string.warning),
                 getString(R.string.edit_points_description),
                 getString(R.string.yes),
                 getString(R.string.no)
