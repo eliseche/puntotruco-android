@@ -1,14 +1,20 @@
 <resources>
     <string name="app_name">PuntoTruco</string>
-    <string name="us">Nosotros</string>
-    <string name="them">Ellos</string>
-    <string name="yes">Si</string>
+    <string name="us">NÓS</string>
+    <string name="them">ELES</string>
+    <string name="yes">Sim</string>
     <string name="no">Não</string>
-    <string name="accept">Aceptar</string>
-    <string name="game_win">Fin del Juego!</string>
-    <string name="reset_counter">¿Resetear pontos?</string>
-    <string name="points_to_play">Puntos a Jugar</string>
+    <string name="accept">Aceitar</string>
+    <string name="game_win">Fim do jogo!</string>
+    <string name="game_win_description">%s ganhou!. Deseja reiniciar o jogo?</string>
+    <string name="reset_counter">Redefinir pontos?</string>
+    <string name="points_to_play">Pontos a Jogar</string>
     <string name="menu_settings">Configuração</string>
     <string name="menu_about">Sobre</string>
-    <string name="develop_by">Desarrollador por Quitarts</string>
+    <string name="develop_by">Desenvolvido por Quitarts</string>
+    // Settings
+    <string name="warning">Atenção</string>
+    <string name="edit_points_description">Seu jogo será reiniciado. Deseja continuar??</string>
+    // Player Name
+    <string name="player_name_hint">Nome do Jogador</string>
 </resources>

@@ -34,20 +34,22 @@
                 android:padding="10dp">
 
                 <TextView
+                    android:id="@+id/view_us"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/us"
+                    android:text="@{viewModelMain.gridUsPlayerNameAndPoints}"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/view_them"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/them"
+                    android:text="@{viewModelMain.gridThemPlayerNameAndPoints}"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -88,35 +90,45 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:onClick="@{() -> viewModelMain.actionUsSubstract()}"
-                android:src="@drawable/substract" />
+                android:padding="10dp"
+                android:src="@drawable/ic_minus"
+                android:tint="@color/white" />
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:onClick="@{() -> viewModelMain.actionUsAdd()}"
-                android:src="@drawable/add" />
+                android:padding="10dp"
+                android:src="@drawable/ic_add"
+                android:tint="@color/white" />
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:onClick="@{() -> viewModelMain.actionMultiply()}"
-                android:src="@drawable/multiply" />
+                android:padding="10dp"
+                android:src="@drawable/ic_return"
+                android:tint="@color/white" />
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:onClick="@{() -> viewModelMain.actionThemSubstract()}"
-                android:src="@drawable/substract" />
+                android:padding="10dp"
+                android:src="@drawable/ic_minus"
+                android:tint="@color/white" />
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:onClick="@{() -> viewModelMain.actionThemAdd()}"
-                android:src="@drawable/add" />
+                android:padding="10dp"
+                android:src="@drawable/ic_add"
+                android:tint="@color/white" />
 
         </LinearLayout>
 

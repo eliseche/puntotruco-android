@@ -21,8 +21,11 @@
             android:name=".views.ActivityAbout"
             android:theme="@style/NoActionBar" />
 
+        <activity android:name=".views.ActivitySettings" />
+
         <activity
-            android:name=".views.ActivitySettings" />
+            android:name=".views.ActivityAlert"
+            android:theme="@style/Modal" />
 
     </application>
 

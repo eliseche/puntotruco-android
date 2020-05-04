@@ -10,11 +10,7 @@ import com.quitarts.puntotruco.Utils
 import kotlin.math.roundToInt
 
 
-class Grid @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+class Grid @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
     private var points = 0
     private var gamePoints = Utils.getPoints()
 

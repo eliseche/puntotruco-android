@@ -8,21 +8,25 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.quitarts.puntotruco.BR
 import com.quitarts.puntotruco.R
+import com.quitarts.puntotruco.Utils
 import com.quitarts.puntotruco.databinding.ActivityMainBinding
+import com.quitarts.puntotruco.enums.PlayerType
 import com.quitarts.puntotruco.viewmodels.ViewModelMain
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
-class ActivityMain : AppCompatActivity() {
+class ActivityMain : AppCompatActivity(), FragmentPlayer.IFragmentPlayerListener {
     private lateinit var viewModelMain: ViewModelMain
+    private lateinit var fragmentPlayer: FragmentPlayer
 
+    //region Lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModelMain = ViewModelProviders.of(this).get(ViewModelMain::class.java)
-
+        viewModelMain = ViewModelProvider(this).get(ViewModelMain::class.java)
 
         val binding: ActivityMainBinding? = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding?.setVariable(BR.viewModelMain, viewModelMain)
@@ -64,7 +68,16 @@ class ActivityMain : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+    //endregion
 
+    //region IFragmentPlayerListener
+    override fun onDialogPositiveClick(playerName: String, playerType: PlayerType) {
+        fragmentPlayer.dismiss()
+        viewModelMain.savePlayerName(playerName, playerType)
+    }
+    //endregion
+
+    //region Setup
     private fun init() {
         viewModelMain.init(grid_us, grid_them)
 
@@ -77,33 +90,67 @@ class ActivityMain : AppCompatActivity() {
         })
 
         viewModelMain.actionShowAlertGameOver.observe(this, Observer {
-            showAlertGameOver()
+            it?.let {
+                showAlertGameOver(it)
+            }
         })
+
+        view_us.onClick {
+            changePlayerName(PlayerType.US)
+        }
+
+        view_them.onClick {
+            changePlayerName(PlayerType.THEM)
+        }
     }
+    //endregion
 
     private fun refreshUi() {
         grid_us.invalidate()
         grid_them.invalidate()
+
+        viewModelMain.updatePlayerNames()
     }
 
-    // Alerts
-    fun showAlertReset() {
-        val builder = AlertDialog.Builder(this)
-        builder.setCancelable(false)
-        builder.setTitle(resources.getString(R.string.reset_counter))
-        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, i ->
-            viewModelMain.reset()
-        }
-        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, i -> }
-        builder.create().show()
+    private fun reset() {
+        viewModelMain.reset()
     }
 
-    fun showAlertGameOver() {
-        val builder = AlertDialog.Builder(this)
-        builder.setCancelable(false)
-        builder.setTitle(resources.getString(R.string.game_win))
-        builder.setPositiveButton(resources.getString(R.string.accept)) { dialogInterface, i ->
-        }
-        builder.create().show()
+    private fun changePlayerName(playerType: PlayerType) {
+        val args = Bundle()
+        args.putSerializable("playerType", playerType)
+
+        fragmentPlayer = FragmentPlayer()
+        fragmentPlayer.isCancelable = false
+        fragmentPlayer.arguments = args
+        fragmentPlayer.show(supportFragmentManager, ActivityMain::class.java.simpleName)
     }
+
+    //region Alerts
+    private fun showAlertReset() {
+        val alertParams = ActivityAlert.AlertParams(
+            getString(R.string.warning),
+            getString(R.string.reset_counter),
+            getString(R.string.yes),
+            getString(R.string.no)
+        )
+        ActivityAlert.completionPositive = this::reset
+        val intent = Intent(this, ActivityAlert::class.java)
+        intent.putExtra(ActivityAlert.ALERT_PARAMS, alertParams)
+        startActivity(intent)
+    }
+
+    private fun showAlertGameOver(winner: String) {
+        val alertParams = ActivityAlert.AlertParams(
+            getString(R.string.game_win),
+            String.format(getString(R.string.game_win_description), winner),
+            getString(R.string.yes),
+            getString(R.string.no)
+        )
+        ActivityAlert.completionPositive = this::reset
+        val intent = Intent(this, ActivityAlert::class.java)
+        intent.putExtra(ActivityAlert.ALERT_PARAMS, alertParams)
+        startActivity(intent)
+    }
+    //endregion
 }
