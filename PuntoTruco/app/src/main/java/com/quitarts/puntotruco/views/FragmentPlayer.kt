@@ -1,6 +1,7 @@
 package com.quitarts.puntotruco.views
 
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Point
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -68,6 +69,14 @@ class FragmentPlayer : DialogFragment() {
 
     override fun onResume() {
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.setOnKeyListener { dialog, keyCode, event ->
+            if (keyCode == android.view.KeyEvent.KEYCODE_BACK) {
+                dismiss()
+                true
+            }
+
+            false
+        }
 
         super.onResume()
     }
